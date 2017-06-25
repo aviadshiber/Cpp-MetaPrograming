@@ -1,0 +1,7 @@
+#ifndef INTLISTCOMPARATORS
+#define INTLISTCOMPARATORS
+#include "IntList.h"
+
+
+
+#endif // !INTLISTCOMPARATORS

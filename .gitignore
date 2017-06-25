@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+/OOP5_SOL/OOP5_SOL/OOP5_SOL.vcxproj.user
+/OOP5_SOL/OOP5_SOL/OOP5_SOL.vcxproj.filters
+/OOP5_SOL/OOP5_SOL/OOP5_SOL.vcxproj
+/OOP5_SOL/OOP5_SOL.VC.db
+/OOP5_SOL/OOP5_SOL.VC.VC.opendb
