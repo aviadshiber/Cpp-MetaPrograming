@@ -7,7 +7,7 @@
  * \brief merges two lists, one to the other.
  * for example: MergedIntLists<IntList<1,9>, IntList<1,2,3,4>>::list; // = IntList<1,1,9,2,3,4>
  */
-template< typename T1 , typename T2 > 
+template< typename IntList1 , typename IntList2 >
 struct MergedIntLists;
 
 template<> 

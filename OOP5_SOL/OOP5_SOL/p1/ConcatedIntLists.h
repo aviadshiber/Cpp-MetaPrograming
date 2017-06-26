@@ -2,8 +2,8 @@
 #define CONCATEDINTLISTS
 #include "IntList.h"
 
-template <typename T1,typename... T2> 
-struct ConcatedIntLists{};
+template <typename IntList1 ,typename... IntList2>
+struct ConcatedIntLists;
 
 
 template <int... t1>
