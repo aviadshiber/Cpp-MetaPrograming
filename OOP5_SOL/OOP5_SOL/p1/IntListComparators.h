@@ -62,6 +62,7 @@ struct IntListContains< IntList<> > {
 
 /*
  * checks if IntList1 at INDEX (Zero based) is equal to VALUE.
+ * example: IntListIndexEquals<IntList<1, 2>, 0, 1>::value; // = true (index 0 contains 1)
  */
 template<class IntList1,int INDEX,int VALUE>
 struct IntListIndexEquals;
