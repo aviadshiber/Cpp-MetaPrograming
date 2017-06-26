@@ -47,7 +47,7 @@ struct IntListContains;
 template<int h1,int...t1,int num1,int...otherNumbers>
 struct IntListContains< IntList<h1,t1...> ,num1 , otherNumbers... > {
 private:
-	typedef  IntListContains<IntList<t1...> ,otherNumbers... > containsInListTail;
+	using containsInListTail = IntListContains<IntList<t1...> ,otherNumbers... >;
 public:
 	constexpr static bool value = h1 == num1 ? true : typename containsInListTail::value;
 };
@@ -70,7 +70,7 @@ struct IntListIndexEquals;
 template<int h,int...t,int INDEX,int VALUE>
 struct IntListIndexEquals< IntList<h,t...> > {
 private:
-	typedef IntListIndexEquals<IntList<t...> , (INDEX - 1) , VALUE> indexEqualOnTail;
+	using indexEqualOnTail = IntListIndexEquals<IntList<t...> , (INDEX - 1) , VALUE>;
 public:
 	constexpr static bool value = INDEX == 0 ? h == VALUE : typename indexEqualOnTail::value;
 };
