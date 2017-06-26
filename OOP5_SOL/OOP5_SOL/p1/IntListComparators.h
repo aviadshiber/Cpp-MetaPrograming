@@ -2,8 +2,8 @@
 #define INTLISTCOMPARATORS
 #include "IntList.h"
 /**
- * checks iff two lists are equal.
- * two lists are equal if they have the same length, same values, same order.
+ * checks if two lists are equal.
+ * two lists are equal iff they have the same length, same values, same order.
  * for example: IntListsEqual<IntList<2, 3>, IntList<2, 3>>::value; // = true
  */
 
@@ -36,7 +36,8 @@ struct IntListsEqual<IntList<>,IntList<>> {
 
 /* --------------------------------------------------------------------------*/
 /**
- * checks iff IntList1 have the same numbers as VALUES, same length, same order.
+ * checks if IntList1 contains VALUES. 
+ * IntList1 contains VALUES iff VALUES have the same numbers as IntList1, same length, same order.
  * for example: IntListContains<IntList<2, 2, 3>, 2, 2, 3>::value; // = true
  * 
  */
@@ -45,16 +46,38 @@ struct IntListContains;
 
 template<int h1,int...t1,int num1,int...otherNumbers>
 struct IntListContains< IntList<h1,t1...> ,num1 , otherNumbers... > {
+private:
 	typedef  IntListContains<IntList<t1...> ,otherNumbers... > containsInListTail;
+public:
 	constexpr static bool value = h1 == num1 ? true : typename containsInListTail::value;
 };
 
 template<>
 struct IntListContains< IntList<> > {
-
 	constexpr static bool value = true;
 };
 
 
+/* --------------------------------------------------------------------------*/
+
+/*
+ * checks if IntList1 at INDEX (Zero based) is equal to VALUE.
+ */
+template<class IntList1,int INDEX,int VALUE>
+struct IntListIndexEquals;
+
+
+template<int h,int...t,int INDEX,int VALUE>
+struct IntListIndexEquals< IntList<h,t...> > {
+private:
+	typedef IntListIndexEquals<IntList<t...> , (INDEX - 1) , VALUE> indexEqualOnTail;
+public:
+	constexpr static bool value = INDEX == 0 ? h == VALUE : typename indexEqualOnTail::value;
+};
+/* base case when list is empty */
+template< int INDEX , int VALUE>
+struct IntListIndexEquals< IntList<> > {
+	constexpr static bool value = false;
+};
 
 #endif // !INTLISTCOMPARATORS
