@@ -28,6 +28,10 @@ struct IntListUtils< IntList<t> > {
 	using reversed = IntList<t>;
 };
 
+struct IntListUtils< IntList<> > {
+	using reversed = IntList<>;
+};
+
 
 
 
