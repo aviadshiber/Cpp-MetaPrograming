@@ -2,7 +2,14 @@
 #define INTLISTUTILS
 #include "IntList.h"
 #include "ConcatedIntLists.h"
-
+/**
+ * helper wrapper to IntList which allows us to add information & actions to IntList.
+ * currently it could retrive the max,min the reverse the list.
+ * examples:
+ *	IntListUtils<IntList<1,2,3>>::reversed; // = IntList<3,2,1>
+ *	IntListUtils<IntList<1, 2, 3>>::max; // = 3
+ *	IntListUtils<IntList<1, 2, 3>>::min; // = 1
+ */
 template<typename... t>
 struct IntListUtils;
 
