@@ -27,7 +27,7 @@ struct IntListUtils< IntList<t> > {
 	constexpr static int min = t;
 	using reversed = IntList<t>;
 };
-
+template<>
 struct IntListUtils< IntList<> > {
 	using reversed = IntList<>;
 };

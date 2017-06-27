@@ -15,20 +15,21 @@ struct IntListsEqual<IntList<h1,t1...>,IntList<h2,t2...> > {
 private:
 	using tailsEquals = IntListsEqual< IntList<t1...> , IntList<t2...> >;
 public:
-	constexpr static bool value = h1 == h2 ? true : typename tailsEquals::value;
+	constexpr static bool value = h1 == h2 ? typename tailsEquals::value : false;
 };
 
 /* base case when the lists are not on the same size*/
-template<int t>
-struct IntListsEqual<IntList<t> , IntList<>> {
+template<int... t>
+struct IntListsEqual<IntList<t...> , IntList<> > {
 	constexpr static bool value = false;
 };
-template<int t>
-struct IntListsEqual<IntList<> , IntList<t>> {
+template<int...t>
+struct IntListsEqual<IntList<> , IntList<t...> > {
 	constexpr static bool value = false;
 };
 /* base case of two empty lists*/
-struct IntListsEqual<IntList<>,IntList<>> {
+template<>
+struct IntListsEqual<IntList<>,IntList<> > {
 	constexpr static bool value = true;
 };
 
@@ -49,9 +50,18 @@ struct IntListContains< IntList<h1,t1...> ,num1 , otherNumbers... > {
 private:
 	using containsInListTail = IntListContains<IntList<t1...> ,otherNumbers... >;
 public:
-	constexpr static bool value = h1 == num1 ? true : typename containsInListTail::value;
+	constexpr static bool value = h1 == num1 ? typename containsInListTail::value : false;
 };
 
+template<int h,int...t >
+struct IntListContains< IntList<h,t...>  > {
+	constexpr static bool value = false;
+};
+
+template<int num1,int...otherNumbers>
+struct IntListContains< IntList<> , num1,otherNumbers... > {
+	constexpr static bool value = false;
+};
 template<>
 struct IntListContains< IntList<> > {
 	constexpr static bool value = true;
@@ -67,17 +77,22 @@ struct IntListContains< IntList<> > {
 template<class IntList1,int INDEX,int VALUE>
 struct IntListIndexEquals;
 
-
 template<int h,int...t,int INDEX,int VALUE>
-struct IntListIndexEquals< IntList<h,t...> > {
+struct IntListIndexEquals< IntList<h,t...>,INDEX,VALUE > {
 private:
 	using indexEqualOnTail = IntListIndexEquals<IntList<t...> , (INDEX - 1) , VALUE>;
 public:
 	constexpr static bool value = INDEX == 0 ? h == VALUE : typename indexEqualOnTail::value;
 };
+
+template<int h , int INDEX , int VALUE>
+struct IntListIndexEquals< IntList<h> , INDEX , VALUE > {
+	constexpr static bool value = INDEX == 0 ? h == VALUE : false;
+};
+
 /* base case when list is empty */
-template< int INDEX , int VALUE>
-struct IntListIndexEquals< IntList<> > {
+template< int INDEX , int VALUE >
+struct IntListIndexEquals< IntList<>,INDEX , VALUE  > {
 	constexpr static bool value = false;
 };
 
