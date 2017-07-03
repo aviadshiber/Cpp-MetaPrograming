@@ -13,9 +13,9 @@ struct IntListsEqual;
 template<int h1,int...t1,int h2,int...t2>
 struct IntListsEqual<IntList<h1,t1...>,IntList<h2,t2...> > {
 private:
-	using tailsEquals = IntListsEqual< IntList<t1...> , IntList<t2...> >;
+	typedef IntListsEqual< IntList<t1...> , IntList<t2...> > tailsEquals;
 public:
-	constexpr static bool value = h1 == h2 ? typename tailsEquals::value : false;
+	constexpr static bool value = ( (h1 == h2) ? ( tailsEquals::value) : false);
 };
 
 /* base case when the lists are not on the same size*/
@@ -48,9 +48,9 @@ struct IntListContains;
 template<int h1,int...t1,int num1,int...otherNumbers>
 struct IntListContains< IntList<h1,t1...> ,num1 , otherNumbers... > {
 private:
-	using containsInListTail = IntListContains<IntList<t1...> ,otherNumbers... >;
+	typedef IntListContains<IntList<t1...> ,otherNumbers... > containsInListTail;
 public:
-	constexpr static bool value = h1 == num1 ? typename containsInListTail::value : false;
+	constexpr static bool value = ((h1 == num1) ? ( containsInListTail::value) : false );
 };
 
 template<int h,int...t >
@@ -80,14 +80,14 @@ struct IntListIndexEquals;
 template<int h,int...t,int INDEX,int VALUE>
 struct IntListIndexEquals< IntList<h,t...>,INDEX,VALUE > {
 private:
-	using indexEqualOnTail = IntListIndexEquals<IntList<t...> , (INDEX - 1) , VALUE>;
+	typedef IntListIndexEquals<IntList<t...> , (INDEX - 1) , VALUE> indexEqualOnTail;
 public:
-	constexpr static bool value = INDEX == 0 ? h == VALUE : typename indexEqualOnTail::value;
+	constexpr static bool value = ( (INDEX == 0) ? (h == VALUE) : ( indexEqualOnTail::value) );
 };
 
 template<int h , int INDEX , int VALUE>
 struct IntListIndexEquals< IntList<h> , INDEX , VALUE > {
-	constexpr static bool value = INDEX == 0 ? h == VALUE : false;
+	constexpr static bool value = ((INDEX == 0) ?( h == VALUE ): false);
 };
 
 /* base case when list is empty */
